@@ -27,3 +27,36 @@ function closeModal() {
 
 btnShow.addEventListener("click", openModal);
 btnHide.addEventListener("click", closeModal);
+
+//Function to update status based on time
+
+function updateStatus() {
+  // Date Calculations/Operations
+
+  const stats = document.querySelectorAll(".status");
+  const openedDate = document.querySelectorAll(".stDate");
+  const closingDate = document.querySelectorAll(".endDate");
+  const currentDateTIme = new Date();
+
+  stats.forEach((e, index) => {
+    const openedDateTimeObj = new Date(openedDate[index].textContent);
+    const closignDateTimeObj = new Date(closingDate[index].textContent);
+
+    if (currentDateTIme < openedDateTimeObj) {
+      e.textContent = "Status : Inactive";
+      e.parentNode.classList.add("inactive");
+    } else if (
+      currentDateTIme >= openedDateTimeObj &&
+      currentDateTIme < closignDateTimeObj
+    ) {
+      e.textContent = "Status : Running...";
+      e.parentNode.classList.add("running");
+    } else {
+      e.textContent = "Status : Closed";
+      e.parentNode.classList.add("closed");
+    }
+  });
+}
+
+// Initial check when the page loads
+window.addEventListener("load", updateStatus);

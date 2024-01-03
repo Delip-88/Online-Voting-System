@@ -33,26 +33,38 @@ if (isset($_POST['accept'])) {
 
     header("Location: ../Routes/dashBoard/pendingVoter.php"); // Redirect to the same page after action
     exit;
-}else if (isset($_POST['reject'])) {
+} else if (isset($_POST['reject'])) {
     // Handle reject action
     $user_id = $_POST['user_id'];
     $originating_page = $_POST['originating_page'];
 
-    if ($originating_page === 'pendingVoter') {
-        deleteImageAndRow($connect, $user_id, 'pendingusers', "../../uploads/", "../Routes/dashBoard/pendingVoter.php");
-    } elseif ($originating_page === 'voter') {
-        deleteImageAndRow($connect, $user_id, 'validuser ', "../../uploads/", "../Routes/dashBoard/voter.php");
-    }elseif($originating_page === 'candidate'){
-        deleteImageAndRow($connect,$user_id, 'candidate', "../../uploads/", "../Routes/dashBoard/candidate.php");
-    } 
-    else {
-        // Default redirect if originating_page is not recognized
-        header("Location: ../Routes/loginPage.php");
-        exit;
+    switch ($originating_page) {
+        case 'pendingVoter':
+            deleteImageAndRow($connect, $user_id, 'pendingusers', "../../uploads/", "../Routes/dashBoard/pendingVoter.php");
+            break;
+
+        case 'voter':
+            deleteImageAndRow($connect, $user_id, 'validuser ', "../../uploads/", "../Routes/dashBoard/voter.php");
+            break;
+
+        case 'candidate':
+            deleteImageAndRow($connect, $user_id, 'candidate', "../../uploads/", "../Routes/dashBoard/candidate.php");
+            break;
+
+        case 'election':
+            $delete_query = "DELETE FROM election WHERE Id = $user_id";
+            mysqli_query($connect, $delete_query);
+            header("Location: ../Routes/dashBoard/position.php");
+            break;
+
+        default:
+            // Default redirect if originating_page is not recognized
+            header("Location: ../Routes/loginPage.php");
+            break;
     }
 }
-
-function deleteImageAndRow($connect, $user_id, $table, $imagePathPrefix, $redirectPage) {
+function deleteImageAndRow($connect, $user_id, $table, $imagePathPrefix, $redirectPage)
+{
     // Fetch the image name from the database
     $image_query = "SELECT Image FROM $table WHERE Id = $user_id";
     $image_result = mysqli_query($connect, $image_query);
@@ -75,6 +87,5 @@ function deleteImageAndRow($connect, $user_id, $table, $imagePathPrefix, $redire
     header("Location: $redirectPage");
     exit;
 }
-
 
 ?>
