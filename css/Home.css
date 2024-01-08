@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: sans-serif;
  }
 
  body {
@@ -31,6 +32,7 @@
     color: white;
  }
 
+
  figure {
     height: 95%;
     aspect-ratio: 1/1;
@@ -48,6 +50,7 @@
     display: flex;
     width: 100%;
     height: auto;
+    background-color: #85909c;
  }
 
  ul {
@@ -62,8 +65,9 @@
  .main {
     flex: 80%;
     padding: 20px 50px;
-    height: 100%;
-    /* background-color: #cde400; */
+    min-height: 100vh;
+
+    background-color: #E9F1FA;
     position: relative;
  }
 
@@ -163,6 +167,7 @@
     height: 100%;
     width: 100%;
     object-fit: cover;
+    cursor: pointer;
  }
 
  form button,
@@ -171,7 +176,7 @@
     border: none;
     padding: 5px 10px;
     margin-left: 15px;
-    box-shadow: 2px 3px 4px rgb(105, 88, 88);
+    /* box-shadow: 2px 3px 4px rgb(105, 88, 88); */
     cursor: pointer;
     transition: transform 30ms ease;
  }
@@ -182,15 +187,22 @@
 
  .accept,
  .more {
+    padding: 7 11px;
+    border-radius: 6px;
     background-color: rgb(23, 173, 23);
     color: white;
+    font-size: 17px;
+    font-weight: bold;
 
  }
 
  .reject {
+    padding: 7 11px;
+    border-radius: 6px;
     background-color: red;
     color: white;
-
+    font-size: 18px;
+    font-weight: bold;
  }
 
 
@@ -342,7 +354,7 @@
  }
 
  .info button {
-    margin-left: 80%;
+    margin: auto;
  }
 
  .elections {
@@ -385,11 +397,16 @@
 
  @media only screen and (max-width:650px) {
     nav {
-       flex-direction: column-reverse;
+       flex-direction: column;
     }
 
     ul {
        width: 100%;
+    }
+
+    #title {
+       font-size: 20px;
+       color: red;
     }
 
     .welcome {}

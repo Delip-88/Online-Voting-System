@@ -34,7 +34,7 @@ if (!$result) {
       <figure>
         <img src="../../img/use.png" alt="" />
       </figure>
-      <h2>SecureVote - Online Voting Platform</h2>
+      <h2 id="title">SecureVote - Online Voting Platform</h2>
       <div class="welcome">
         <h3>Welcome, <span id='user'>
             <?php echo $userdata['Full_Name']; ?>
