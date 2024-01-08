@@ -193,6 +193,7 @@
     color: white;
     font-size: 17px;
     font-weight: bold;
+    transition: all 100ms ease;
 
  }
 
@@ -203,7 +204,20 @@
     color: white;
     font-size: 18px;
     font-weight: bold;
+    transition: all 100ms ease;
  }
+
+ .reject:hover {
+    background-color: rgb(202, 19, 19);
+
+ }
+
+ .accept:hover,
+ .more:hover {
+    background-color: rgb(25, 129, 25);
+
+ }
+
 
 
  .addMore {
