@@ -87,6 +87,8 @@
    background-color: #b1bfcfe7;
    padding: 10px 30px;
    border-radius: 10px;
+   justify-content: space-around;
+   align-items: left;
  }
 
  .voteBtn {
@@ -143,6 +145,13 @@
    padding: 10px;
  }
 
+ .items {
+   display: flex;
+   flex-direction: column;
+   padding: 15px;
+   gap: 10px;
+ }
+
  .card .img {
    width: 100px;
    aspect-ratio: 1/1;
@@ -163,5 +172,17 @@
    font-size: larger;
    padding-left: 5%;
    margin-top: 10px;
+
+ }
+
+ @media only screen and (max-width:800px) {
+   .container {
+     grid-template-columns: 1fr;
+   }
+
+   #title {
+     font-size: 22px;
+   }
+
 
  }

@@ -80,31 +80,31 @@ if (!$result) {
         </div>
 
 
-        <div class="addMore pop_box" id="modal">
-          <h2>Create Election</h2>
-          <hr>
-          <form action="../../api/electionForm.php" method="post" class="pos" id="adC">
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title" required>
-            <br>
-            <label for="startDate">Starting Date & Time : </label>
-            <input type="datetime-local" name="startDate" id="startDate">
-            <br>
-            <label for="endDate">Closing Date & Time : </label>
-            <input type="datetime-local" name="endDate" id="endDate">
-            <br>
 
-            <div class="btns">
-              <button type="submit" id="btnC">Create Election</button>
-              <button type="reset" class="cancel btn_cancel">cancel</button>
-            </div>
-          </form>
-        </div>
       </div>
 
     </nav>
   </div>
+  <div class="addMore pop_box" id="modal">
+    <h2>Create Election</h2>
+    <hr>
+    <form action="../../api/electionForm.php" method="post" class="pos" id="adC">
+      <label for="title">Title</label>
+      <input type="text" name="title" id="title" required>
+      <br>
+      <label for="startDate">Starting Date & Time : </label>
+      <input type="datetime-local" name="startDate" id="startDate">
+      <br>
+      <label for="endDate">Closing Date & Time : </label>
+      <input type="datetime-local" name="endDate" id="endDate">
+      <br>
 
+      <div class="btns">
+        <button type="submit" id="btnC">Create Election</button>
+        <button type="reset" class="cancel btn_cancel">cancel</button>
+      </div>
+    </form>
+  </div>
   <script src="script.js"></script>
 </body>
 

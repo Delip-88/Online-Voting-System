@@ -34,7 +34,7 @@
 
 
  figure {
-    height: 95%;
+    width: 70px;
     aspect-ratio: 1/1;
     margin-left: 2%;
 
@@ -176,13 +176,13 @@
     border: none;
     padding: 5px 10px;
     margin-left: 15px;
-    /* box-shadow: 2px 3px 4px rgb(105, 88, 88); */
     cursor: pointer;
     transition: transform 30ms ease;
  }
 
- button:focus {
-    transform: scale(0.9);
+ .btn_more {
+    position: relative;
+    z-index: 10;
  }
 
  .accept,
@@ -355,6 +355,10 @@
     width: 150px;
  }
 
+ #title {
+    text-align: center;
+
+ }
 
  #candidate-card {
     display: flex;
@@ -420,8 +424,18 @@
 
     #title {
        font-size: 20px;
-       color: red;
     }
 
-    .welcome {}
+
+    .welcome {
+       font-size: 18px;
+    }
+ }
+
+ @media only screen and (max-width:600px) {
+    header {
+       flex-direction: column;
+       height: auto;
+       gap: 5px;
+    }
  }

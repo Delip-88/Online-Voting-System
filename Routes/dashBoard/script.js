@@ -47,9 +47,9 @@ function updateStatus() {
       e.parentNode.classList.add("inactive");
     } else if (
       currentDateTIme >= openedDateTimeObj &&
-      currentDateTIme < closignDateTimeObj
+      currentDateTIme <= closignDateTimeObj
     ) {
-      e.textContent = "Status : Running...";
+      e.textContent = "Status : Ongoing";
       e.parentNode.classList.add("running");
     } else {
       e.textContent = "Status : Closed";
