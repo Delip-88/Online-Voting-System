@@ -52,6 +52,7 @@ if (isset($_POST['accept'])) {
             break;
 
         case 'election':
+            // code changed
             $delete_query = "DELETE FROM election WHERE Id = $user_id";
             mysqli_query($connect, $delete_query);
             header("Location: ../Routes/dashBoard/position.php");
