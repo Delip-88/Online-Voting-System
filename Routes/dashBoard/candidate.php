@@ -89,8 +89,6 @@ if (!$result) {
     <form action="../../api/candidateForm.php" method="post" id="addC" enctype="multipart/form-data">
       <label for="name">Candidate Name</label>
       <input type="text" name="name" id="name" required>
-      <!-- Image preview container -->
-      <div id="imagePreview"></div>
       <br>
       <label for="image">Image(JPG, JPEG, PNG)</label>
       <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png" alt="Candidate Image" required>
@@ -119,7 +117,7 @@ if (!$result) {
     </form>
   </div>
 
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 
 </html>

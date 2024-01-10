@@ -313,13 +313,6 @@
     border-radius: 5px;
  }
 
- #imagePreview {
-    width: 100px;
-    aspect-ratio: 1/1;
-    position: absolute;
-    top: 20%;
-    right: 20px;
- }
 
  #btnC {
     background-color: rgba(47, 197, 47, 0.884);
@@ -403,7 +396,7 @@
     background-color: rgba(255, 255, 0, 0.87);
  }
 
- .running {
+ .Ongoing {
     background-color: rgba(26, 206, 26, 0.733);
  }
 

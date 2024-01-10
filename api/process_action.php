@@ -36,6 +36,8 @@ if (isset($_POST['accept'])) {
 } else if (isset($_POST['reject'])) {
     // Handle reject action
     $user_id = $_POST['user_id'];
+    $electionTitle = $_POST['Title'];
+
     $originating_page = $_POST['originating_page'];
 
     switch ($originating_page) {
@@ -54,7 +56,14 @@ if (isset($_POST['accept'])) {
         case 'election':
             // code changed
             $delete_query = "DELETE FROM election WHERE Id = $user_id";
-            mysqli_query($connect, $delete_query);
+            if (mysqli_query($connect, $delete_query)) {
+                echo "Deletion Success";
+            } else {
+
+                echo "Deletion Failed" . mysqli_error($connect);
+            }
+            $delete_candidates_query = "DELETE FROM candidate WHERE Position='$electionTitle'";
+            mysqli_query($connect, $delete_candidates_query);
             header("Location: ../Routes/dashBoard/position.php");
             break;
 

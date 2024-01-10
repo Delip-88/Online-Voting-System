@@ -1,4 +1,6 @@
 <?php
+$timeout = 24 * 60 * 60; //24 hours in seconds
+session_set_cookie_params($timeout);
 session_start();
 if ($_SESSION['userdata']['Role'] !== 'user') {
   header('location: ../Routes/loginPage.html');
@@ -62,43 +64,50 @@ $userdata = $_SESSION['userdata'];
           include("../api/connect.php");
 
           // Fetch election titles
-          $queryElection = "SELECT Title FROM election";
+          $queryElection = "SELECT Title, Status FROM election";
           $resultElection = mysqli_query($connect, $queryElection);
 
           while ($rowElection = mysqli_fetch_assoc($resultElection)) {
             // Display election title
-            echo "<h2>Title : <span class='title'>{$rowElection['Title']} </span> </h2>";
-            $electionTitle = $rowElection['Title'];
+            if ($rowElection['Status'] === 'Ongoing') {
+              echo "<h2>Title : <span class='title'>{$rowElection['Title']} </span> </h2>";
+              $electionTitle = $rowElection['Title'];
 
-            // Fetch and display candidates for the specific election title 
-            $queryCandidates = "SELECT * FROM candidate WHERE Position = ?";
-            $stmtCandidates = mysqli_prepare($connect, $queryCandidates);
-            mysqli_stmt_bind_param($stmtCandidates, 's', $electionTitle);
-            mysqli_stmt_execute($stmtCandidates);
-            $resultCandidates = mysqli_stmt_get_result($stmtCandidates);
-            echo "<div class='cardContainer'>";
-            while ($rowCandidate = mysqli_fetch_assoc($resultCandidates)) {
-              echo "<div class='eCard'>";
-              echo "<div class='user-image'>";
-              echo "<img src='../uploads/{$rowCandidate['Image']}' alt='Candidate Image'>";
-              echo "</div>";
-              echo "<strong>Full Name: {$rowCandidate['Full_Name']}</strong>";
-              echo "<small>Description: {$rowCandidate['Description']}</small>";
-              echo "<form method='post'>
-              <input type='hidden' name='candidate' value='1'>
-              <button type='submit' class='voteBtn'> Vote </button>
-              ";
-              echo "</div>"; // Close the candidate card here
+              // Fetching election title
+              $queryCandidates = "SELECT * FROM candidate WHERE Position = ?";
+              $stmtCandidates = mysqli_prepare($connect, $queryCandidates);
+              mysqli_stmt_bind_param($stmtCandidates, 's', $electionTitle);
+              mysqli_stmt_execute($stmtCandidates);
+              $resultCandidates = mysqli_stmt_get_result($stmtCandidates);
+
+              // Check if there are candidates before displaying the container
+              if (mysqli_num_rows($resultCandidates) > 0) {
+                echo "<div class='cardContainer'>";
+                // candidate information fetching and displaying
+                while ($rowCandidate = mysqli_fetch_assoc($resultCandidates)) {
+                  echo "<div class='eCard'>";
+                  echo "<div class='user-image'>";
+                  echo "<img src='../uploads/{$rowCandidate['Image']}' alt='Candidate Image'>";
+                  echo "</div>";
+                  echo "<strong>Full Name: {$rowCandidate['Full_Name']}</strong>";
+                  echo "<small>Description: {$rowCandidate['Description']}</small>";
+                  echo "<form method='post'>
+                            <input type='hidden' name='candidate' value='1'>
+                            <button type='submit' class='voteBtn'> Vote </button>
+                            ";
+                  echo "</div>"; // Close the candidate card here
+                }
+                echo "</div>"; // Close the cardContainer only if there are candidates
+              }
+
+              mysqli_stmt_close($stmtCandidates);
             }
-            echo "</div>";
-            mysqli_stmt_close($stmtCandidates);
           }
-          // Close the eCard container here, after the inner loop
-          echo "</div>";
 
           // Close the database connection if necessary
           mysqli_close($connect);
           ?>
+
 
         </div>
 

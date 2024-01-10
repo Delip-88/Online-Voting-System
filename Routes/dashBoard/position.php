@@ -26,6 +26,7 @@ if (!$result) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SecureVote - Online Voting Platform</title>
   <link rel="stylesheet" href="../../css/Home.css" />
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 
 <body>
@@ -65,10 +66,11 @@ if (!$result) {
             echo "<h2>Election Title : {$row['Title']} </h2>";
             echo "<p class='stDate'>Starting Date: {$row['StartDate']} </p>";
             echo "<p class='endDate'>Ending Date: {$row['EndDate']} </p>";
-            echo "<p class='status'></p>";
+            echo "<p> Status : <span class='status'></span></p>";
             echo "
             <form action='../../api/process_action.php' method='post'>
             <input type='hidden' name='user_id' value='{$row['Id']}'>
+            <input type='hidden' name='Title' value='{$row['Title']}'>
             <input type='hidden' name='originating_page' value='election'>
             <button type='submit' name='reject' class='reject delete'>Delete</button>
             </form>
@@ -105,7 +107,8 @@ if (!$result) {
       </div>
     </form>
   </div>
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/updateStatus.js"></script>
 </body>
 
 </html>
