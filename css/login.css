@@ -62,13 +62,6 @@
      color: black;
  }
 
- #forgot {
-     text-align: right;
-     font-size: small;
-     color: black;
-     margin-bottom: 10px;
- }
-
  select {
      all: unset;
      border: 1px solid black;

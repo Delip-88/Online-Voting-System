@@ -61,11 +61,17 @@ if (!$result) {
         <div class="elections">
 
           <?php
+
+          $electionTitles = array(); // Initialize an array to store election titles
+          
           while ($row = mysqli_fetch_assoc($result)) {
-            echo "<div class='eCard'> ";
+            $electionTitle = $row['Title'];
+            $electionTitles[] = $electionTitle; // Add each election title to the array
+          
+            echo "<div class='eCard' data-title='{$row['Title']}'> ";
             echo "<h2>Election Title : {$row['Title']} </h2>";
-            echo "<p class='stDate'>Starting Date: {$row['StartDate']} </p>";
-            echo "<p class='endDate'>Ending Date: {$row['EndDate']} </p>";
+            echo "<p >Starting Date: <span class='stDate'>{$row['StartDate']} </span></p>";
+            echo "<p >Ending Date: <span class='endDate'>{$row['EndDate']} </span></p>";
             echo "<p> Status : <span class='status'></span></p>";
             echo "
             <form action='../../api/process_action.php' method='post'>
@@ -95,10 +101,11 @@ if (!$result) {
       <input type="text" name="title" id="title" required>
       <br>
       <label for="startDate">Starting Date & Time : </label>
-      <input type="datetime-local" name="startDate" id="startDate">
+      <input type="datetime-local" name="startDate" id="startDate" min="<?php echo date('Y-m-d\TH:i'); ?>">
       <br>
-      <label for="endDate">Closing Date & Time : </label>
-      <input type="datetime-local" name="endDate" id="endDate">
+      <label for="endDate">Closing Date & Time :
+        </label>
+      <input type="datetime-local" name="endDate" id="endDate" min="<?php echo date('Y-m-d\TH:i'); ?>">
       <br>
 
       <div class="btns">
@@ -107,6 +114,12 @@ if (!$result) {
       </div>
     </form>
   </div>
+
+
+<!-- Output the array as a JSON object in a script tag -->
+<script>
+    var electionTitles = <?php echo json_encode($electionTitles); ?>;
+</script>
   <script src="js/script.js"></script>
   <script src="js/updateStatus.js"></script>
 </body>

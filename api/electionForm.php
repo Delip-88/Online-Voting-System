@@ -5,7 +5,7 @@ $position = $_POST['title'];
 $sDate = $_POST['startDate'];
 $eDate = $_POST['endDate'];
 
-//Get the current date and time
+// Get the current date and time
 $currDateTime = date('Y-m-d H:i:s');
 
 // Compare with the start and end dates to determine the election status
@@ -17,17 +17,20 @@ if ($currDateTime < $sDate) {
     $status = 'Closed';
 }
 
-$insert = mysqli_query($connect, "INSERT INTO election(Title,StartDate,EndDate, Status) VALUES('$position','$sDate','$eDate', '$status') ");
+// echo "Status for Insertion: " . $status . "<br>";
+
+
+$insert = mysqli_query($connect, "INSERT INTO election(Title, StartDate, EndDate, Status) VALUES('$position','$sDate','$eDate', '$status') ");
 
 if ($insert) {
     header("Location: ../Routes/dashBoard/position.php");
-    exit; // Ensure script execution stops after the redirect
+    exit;
 } else {
-    echo "
-    <script>
-    alert('Insertion Failed');
-    </script>";
+    echo "Insertion Failed: " . mysqli_error($connect);
     header("Location: ../Routes/dashBoard/position.php");
     exit; // Ensure script execution stops after the redirect
 }
+
+
+
 ?>

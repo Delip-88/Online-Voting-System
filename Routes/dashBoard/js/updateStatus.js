@@ -1,14 +1,16 @@
-// Function to update election status dynamically
 function updateElectionStatus() {
-  // logic to determine the current status (e.g., closed, ongoing, inactive)
   const stats = document.querySelectorAll(".status");
   const openedDate = document.querySelectorAll(".stDate");
   const closingDate = document.querySelectorAll(".endDate");
   const currentDateTIme = new Date();
 
   stats.forEach((e, index) => {
-    const openedDateTimeObj = new Date(openedDate[index].textContent);
-    const closingDateTimeObj = new Date(closingDate[index].textContent);
+    const openedDateTimeStr = openedDate[index].innerText;
+    const closingDateTimeStr = closingDate[index].innerText;
+
+    const openedDateTimeObj = new Date(openedDateTimeStr);
+    const closingDateTimeObj = new Date(closingDateTimeStr);
+
     let newStatus;
     if (currentDateTIme < openedDateTimeObj) {
       newStatus = "Inactive";
@@ -27,22 +29,23 @@ function updateElectionStatus() {
       e.parentNode.parentNode.classList.add("closed");
     }
 
-    // Update the text content of an HTML element with the new election status
-    $("#status").text(newStatus);
+    const electionTitle = e.parentNode.parentNode.dataset.title; // Get election title from data attribute
+
+    console.log("Debugging: Current Status before update -", newStatus);
 
     // Make an AJAX request to update the database
     $.ajax({
-      type: "POST", // HTTP method for the request
-      url: "../../api/updateElectionStatus.php", // Server-side script to handle the request
+      type: "POST",
+      url: "../../api/updateElectionStatus.php",
       data: {
-        electionTitle: "<?php echo $electionTitle; ?>", // Data to be sent to the server
+        electionTitle: electionTitle,
         newStatus: newStatus,
       },
       success: function (response) {
         console.log("Database updated successfully");
       },
       error: function (error) {
-        console.error("Error updating database: " + error);
+        console.error("Error updating database: " + error.responseText);
       },
     });
   });
