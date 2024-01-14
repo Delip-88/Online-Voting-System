@@ -9,6 +9,7 @@ include('../api/connect.php');
 
 $userdata = $_SESSION['userdata'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,16 +48,53 @@ $userdata = $_SESSION['userdata'];
         </li>
       </ul>
       <div class="main">
-        <div class="container">
+        <div class="main-container">
           <div class="currentElections">
+            <h2>Ongoing Elections : </h2>
+            <hr>
+            <?php
+
+            //Dispaly Ongoing elections
+            $queryElection = "SELECT Id,Title,Status FROM election WHERE Status='Ongoing'";
+            $resultElection = mysqli_query($connect, $queryElection);
+
+            while ($rowElection = mysqli_fetch_assoc($resultElection)) {
+              echo "<div class='currentElectionBox'>";
+              echo "<h3>Position : " . $rowElection["Title"] . "</h3>";
+
+              //Display election candidates
+              $queryCandidates = "SELECT Id,Full_Name,Image FROM candidate WHERE Position='{$rowElection['Title']}'";
+              $resultCandidates = mysqli_query($connect, $queryCandidates);
+              echo "<h4>Candidates : </h4>";
+              echo "<div class='candidateCardCover'>";
+              while ($rowCandidates = mysqli_fetch_assoc($resultCandidates)) {
+                echo "<div class='candidateCard'>";
+                echo "<div class='user-image'>";
+                echo "<img src='../uploads/{$rowCandidates['Image']}' alt='Candidate Image'>";
+                echo "</div>";
+                echo "<p>Name : " . $rowCandidates['Full_Name'] . "</p>";
+
+                //Vote count from vote db
+                $queryVoteCount = "SELECT COUNT(*) as count FROM votes WHERE ElectionId='{$rowElection['Id']}' AND CandidateId='{$rowCandidates['Id']}'";
+                $resultVoteCount = mysqli_query($connect, $queryVoteCount);
+                $row = mysqli_fetch_assoc($resultVoteCount);
+                $rowCount = $row['count'];
+                echo "<p>Number of Votes : " . $rowCount . "</p>";
+                echo "</div>";
+              }
+              echo "</div>";
+
+
+              echo "</div>";
+            }
+            ?>
+
             <div class="candidates"></div>
           </div>
-
         </div>
       </div>
     </nav>
   </div>
-
   <script src="script.js"></script>
 </body>
 
