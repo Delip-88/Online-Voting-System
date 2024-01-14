@@ -31,7 +31,7 @@ function updateElectionStatus() {
 
     const electionTitle = e.parentNode.parentNode.dataset.title; // Get election title from data attribute
 
-    console.log("Debugging: Current Status before update -", newStatus);
+    // console.log("Debugging: Current Status before update -", newStatus);
 
     // Make an AJAX request to update the database
     $.ajax({

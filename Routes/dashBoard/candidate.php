@@ -98,12 +98,14 @@ if (!$result) {
         <option value="" selected disabled>-- Choose a position --</option>
         <?php
         // Fetch data from the 'election' table 
-        $sql = "SELECT Title FROM election";
+        $sql = "SELECT Title,Status FROM election";
         $result = $connect->query($sql);
 
         // Populate the <select> element with options 
         while ($row = $result->fetch_assoc()) {
-          echo "<option value='" . $row['Title'] . "'>" . $row['Title'] . "</option>";
+          if ($row['Status'] == 'Ongoing') {
+            echo "<option value='" . $row['Title'] . "'>" . $row['Title'] . "</option>";
+          }
         }
         ?>
       </select>

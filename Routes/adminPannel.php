@@ -5,6 +5,8 @@ if ($_SESSION['userdata']['Role'] !== 'admin') {
   exit;
 }
 
+include('../api/connect.php');
+
 $userdata = $_SESSION['userdata'];
 ?>
 <!DOCTYPE html>
@@ -44,7 +46,14 @@ $userdata = $_SESSION['userdata'];
           <a href="./dashBoard/pendingVoter.php" class="btn">PendingVoters</a>
         </li>
       </ul>
-      <div class="main"></div>
+      <div class="main">
+        <div class="container">
+          <div class="currentElections">
+            <div class="candidates"></div>
+          </div>
+
+        </div>
+      </div>
     </nav>
   </div>
 
