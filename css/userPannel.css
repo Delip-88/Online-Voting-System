@@ -58,9 +58,11 @@
  }
 
  #logout {
-   background-color: #A0A0A0;
-   color: #000000;
+   background-color: transparent;
+   border: 1px solid white;
+   color: white;
  }
+
 
  #user {
    color: yellow;
@@ -75,7 +77,7 @@
    height: 100%;
    display: grid;
    grid-template-columns: 1fr 2fr;
-   gap: 20px;
+   /* gap: 20px; */
  }
 
  .main {
@@ -132,14 +134,15 @@
  }
 
  .eCard {
-   min-width: 210px;
-   background-color: rgba(81, 106, 148, 0.747);
+   width: 210px;
+   aspect-ratio: 1/1;
+   background-color: rgb(104, 130, 159);
    /* background-color: rgba(17, 34, 51, 0.795); */
    display: flex;
    justify-content: space-around;
    flex-direction: column;
    gap: 10px;
-   padding: 10px 20px;
+   padding: 10px;
    border-radius: 10px;
    color: white;
  }
@@ -160,6 +163,10 @@
  .voteSection button {
    display: block;
    margin-top: 10px;
+ }
+
+ .elections {
+   padding-top: 10px;
  }
 
  .user-image {
@@ -205,7 +212,7 @@
  .items {
    display: flex;
    flex-direction: column;
-   padding: 15px;
+   padding: 10px;
    gap: 10px;
  }
 
@@ -239,6 +246,7 @@
  @media only screen and (max-width:800px) {
    .container {
      grid-template-columns: 1fr;
+
    }
 
    #title {

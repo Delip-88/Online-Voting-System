@@ -60,7 +60,7 @@ $userdata = $_SESSION['userdata'];
 
             while ($rowElection = mysqli_fetch_assoc($resultElection)) {
               echo "<div class='currentElectionBox'>";
-              echo "<h3>Position : " . $rowElection["Title"] . "</h3>";
+              echo "<h3>Position : <span class='ongoingElectionName'>" . $rowElection["Title"] . "</span></h3>";
 
               //Display election candidates
               $queryCandidates = "SELECT Id,Full_Name,Image FROM candidate WHERE Position='{$rowElection['Title']}'";
@@ -72,14 +72,14 @@ $userdata = $_SESSION['userdata'];
                 echo "<div class='user-image'>";
                 echo "<img src='../uploads/{$rowCandidates['Image']}' alt='Candidate Image'>";
                 echo "</div>";
-                echo "<p>Name : " . $rowCandidates['Full_Name'] . "</p>";
+                echo "<p>Name <strong>: " . $rowCandidates['Full_Name'] . "</strong></p>";
 
                 //Vote count from vote db
                 $queryVoteCount = "SELECT COUNT(*) as count FROM votes WHERE ElectionId='{$rowElection['Id']}' AND CandidateId='{$rowCandidates['Id']}'";
                 $resultVoteCount = mysqli_query($connect, $queryVoteCount);
                 $row = mysqli_fetch_assoc($resultVoteCount);
                 $rowCount = $row['count'];
-                echo "<p>Number of Votes : " . $rowCount . "</p>";
+                echo "<p>Number of Votes : <strong>" . $rowCount . "</strong></p>";
                 echo "</div>";
               }
               echo "</div>";

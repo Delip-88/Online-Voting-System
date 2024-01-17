@@ -57,7 +57,7 @@ if (!$result) {
       <div class="main">
         <h3>Pending User List</h3>
         <hr>
-
+<div class="table-container">
         <table>
           <thead>
             <tr>
@@ -95,6 +95,7 @@ if (!$result) {
             ?>
           </tbody>
         </table>
+        </div>
       </div>
     </nav>
   </div>
