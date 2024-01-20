@@ -63,8 +63,8 @@ if (!$result) {
           <?php
 
           $electionTitles = array(); // Initialize an array to store election titles
-          
           while ($row = mysqli_fetch_assoc($result)) {
+            $electionId = $row['Id'];
             $electionTitle = $row['Title'];
             $electionTitles[] = $electionTitle; // Add each election title to the array
           
@@ -77,6 +77,7 @@ if (!$result) {
             <form action='../../api/process_action.php' method='post'>
             <input type='hidden' name='user_id' value='{$row['Id']}'>
             <input type='hidden' name='Title' value='{$row['Title']}'>
+            <input type='hidden' name='eId' value='$electionId'>
             <input type='hidden' name='originating_page' value='election'>
             <button type='submit' name='reject' class='reject delete'>Delete</button>
             </form>

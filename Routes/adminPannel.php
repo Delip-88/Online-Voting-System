@@ -50,6 +50,39 @@ $userdata = $_SESSION['userdata'];
       <div class="main">
         <div class="main-container">
           <div class="currentElections">
+            <div class="overview">
+              <h2><ul>Overview</ul></h2>
+              <p>Number Of Ongoing Elections: <span>
+              <?php
+              $queryCount = "SELECT COUNT(*) as count FROM election WHERE Status='Ongoing'";
+              $resultquerycount = mysqli_query($connect, $queryCount);
+
+              if ($resultquerycount) {
+                $erow = mysqli_fetch_assoc($resultquerycount);
+                $erowCount = $erow['count'];
+                echo $erowCount;
+              } else {
+                echo "Error fetching data: " . mysqli_error($connect);
+              }
+              ?>
+            </span></p>
+
+              <p>Number Of Voters : <span>
+              <?php
+              $queryCountVoters = "SELECT COUNT(DISTINCT UserId) AS count FROM votes";
+              $resultquerycountVoters = mysqli_query($connect, $queryCountVoters);
+              if ($resultquerycountVoters) {
+                $erow = mysqli_fetch_assoc($resultquerycountVoters);
+                $erowCount = $erow['count'];
+                echo $erowCount;
+              } else {
+                echo "Error fetching data: " . mysqli_error($connect);
+              }
+
+              ?>
+                
+              </span></p>
+            </div>
             <h2>Ongoing Elections : </h2>
             <hr>
             <?php
@@ -65,7 +98,7 @@ $userdata = $_SESSION['userdata'];
               //Display election candidates
               $queryCandidates = "SELECT Id,Full_Name,Image FROM candidate WHERE Position='{$rowElection['Title']}'";
               $resultCandidates = mysqli_query($connect, $queryCandidates);
-              echo "<h4>Candidates : </h4>";
+              echo "<small>Candidates : </small>";
               echo "<div class='candidateCardCover'>";
               while ($rowCandidates = mysqli_fetch_assoc($resultCandidates)) {
                 echo "<div class='candidateCard'>";

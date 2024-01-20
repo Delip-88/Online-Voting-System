@@ -11,9 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($img)) {
         move_uploaded_file($tmp_name, "../uploads/$img");
 
-        $insert = mysqli_query($connect, "INSERT INTO candidate(Full_Name, Position, Image,Description) VALUES('$cName','$position', '$img', '$des')");
+        // Use prepared statement to prevent SQL injection
+        $insert = mysqli_prepare($connect, "INSERT INTO candidate(Full_Name, Position, Image, Description) VALUES(?, ?, ?, ?)");
 
-        if ($insert) {
+        mysqli_stmt_bind_param($insert, 'ssss', $cName, $position, $img, $des);
+
+        if (mysqli_stmt_execute($insert)) {
             echo "
             <script>
             window.location.href='../Routes/dashBoard/candidate.php'
@@ -21,6 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Some error occurred";
         }
+
+        mysqli_stmt_close($insert);
     } else {
         echo "Please select an image.";
     }

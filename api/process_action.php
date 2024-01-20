@@ -28,8 +28,8 @@ if (isset($_POST['accept'])) {
         mysqli_query($connect, $insert_query);
 
         // Delete the row from the 'pendingusers' table
-        $delete_query = "DELETE FROM pendingusers WHERE Id = $user_id";
-        mysqli_query($connect, $delete_query);
+        $election_delete_query = "DELETE FROM pendingusers WHERE Id = $user_id";
+        mysqli_query($connect, $election_delete_query);
     }
 
     header("Location: ../Routes/dashBoard/pendingVoter.php"); // Redirect to the same page after action
@@ -38,7 +38,7 @@ if (isset($_POST['accept'])) {
     // Handle reject action
     $user_id = $_POST['user_id'];
     $electionTitle = $_POST['Title'];
-
+    $electionId = $_POST['eId'];
     $originating_page = $_POST['originating_page'];
 
     switch ($originating_page) {
@@ -56,13 +56,15 @@ if (isset($_POST['accept'])) {
 
         case 'election':
             // code changed
-            $delete_query = "DELETE FROM election WHERE Id = $user_id";
-            if (mysqli_query($connect, $delete_query)) {
+            $election_delete_query = "DELETE FROM election WHERE Id = $user_id";
+            if (mysqli_query($connect, $election_delete_query)) {
                 echo "Deletion Success";
             } else {
 
                 echo "Deletion Failed" . mysqli_error($connect);
             }
+            $votes_delete_query = "DELETE FROM votes WHERE ElectionId= $electionId";
+            mysqli_query($connect, $votes_delete_query);
             $delete_candidates_query = "DELETE FROM candidate WHERE Position='$electionTitle'";
             mysqli_query($connect, $delete_candidates_query);
             header("Location: ../Routes/dashBoard/position.php");
@@ -91,8 +93,8 @@ function deleteImageAndRow($connect, $user_id, $table, $imagePathPrefix, $redire
     }
 
     // Delete the row from the specified table
-    $delete_query = "DELETE FROM $table WHERE Id = $user_id";
-    mysqli_query($connect, $delete_query);
+    $election_delete_query = "DELETE FROM $table WHERE Id = $user_id";
+    mysqli_query($connect, $election_delete_query);
 
     // Redirect to the specified page
     header("Location: $redirectPage");
