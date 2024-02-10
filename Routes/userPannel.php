@@ -119,7 +119,7 @@ $userdata = $_SESSION['userdata'];
                 echo "<form method='post' action='../api/vote.php'>";
                 echo "<label for='candidateSelection'>Vote : </label> ";
                 echo "<select class='candidateSelection' name='candidateSelection'>";
-                echo "<option selected disabled > --Select A Candidate --</option>";
+                echo "<option  disabled > --Select A Candidate --</option>";
                 // Display candidate options in the dropdown
                 foreach ($candidatesArray as $rowCandidate) {
                   echo "<option value='" . $rowCandidate['Id'] . "' >" . $rowCandidate['Full_Name'] . "</option>";

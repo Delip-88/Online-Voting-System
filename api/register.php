@@ -70,9 +70,10 @@ if ($password !== $cpassword) {
 move_uploaded_file($tmp_name, "../uploads/$image");
 
 // Use prepared statement to prevent SQL injection
+$hash = password_hash($password, PASSWORD_DEFAULT);
 $query = "INSERT INTO pendingusers(Full_Name, Number, Password, Email, Address, Image, Role, Status, Votes) VALUES (?, ?, ?, ?, ?, ?, ?, 'pending', 0)";
 $stmt = mysqli_prepare($connect, $query);
-mysqli_stmt_bind_param($stmt, 'sssssss', $name, $number, $password, $email, $address, $image, $role);
+mysqli_stmt_bind_param($stmt, 'sssssss', $name, $number, $hash, $email, $address, $image, $role);
 $result = mysqli_stmt_execute($stmt);
 
 if ($result) {

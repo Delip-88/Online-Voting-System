@@ -74,12 +74,15 @@ if (!$result) {
             echo "<p >Ending Date: <span class='endDate'>{$row['EndDate']} </span></p>";
             echo "<p> Status : <span class='status'></span></p>";
             echo "
-            <form action='../../api/process_action.php' method='post'>
+            <form action='../../api/process_action.php' method='post' >
             <input type='hidden' name='user_id' value='{$row['Id']}'>
             <input type='hidden' name='Title' value='{$row['Title']}'>
             <input type='hidden' name='eId' value='$electionId'>
             <input type='hidden' name='originating_page' value='election'>
+            <div class='modifybtns'>
+            <button name='edit' class='edit'> Edit </button>
             <button type='submit' name='reject' class='reject delete'>Delete</button>
+            </div>
             </form>
             ";
             echo "</div>";

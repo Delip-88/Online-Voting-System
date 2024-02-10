@@ -66,10 +66,10 @@ if (!$result) {
             echo "<span class='label'>Description : <strong>{$row['Description']}</strong>  </span >";
             echo "
               <form action='../../api/process_action.php' method='post'>
-              <input type='hidden' name='user_id' value='{$row['Id']}'>
-              <input type='hidden' name='originating_page' value='candidate'>
-              <button type='submit' name='reject' class='reject'>Remove</button>
-          </form>
+                <input type='hidden' name='user_id' value='{$row['Id']}'>
+                <input type='hidden' name='originating_page' value='candidate'>
+                <button type='submit' name='reject' class='reject'>Remove</button>
+               </form>
               ";
             echo "</div>";
           }
@@ -82,6 +82,7 @@ if (!$result) {
       </div>
     </nav>
   </div>
+  
   <!-- Pop Up Box Form -->
   <div class="addMore pop_box" id="modal">
     <h2>Add Candidate</h2>
